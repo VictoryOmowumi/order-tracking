@@ -32,7 +32,7 @@ const BottomContainer = ({ trackingStages, error }) => {
           
             setTimeout(() => {
               setActiveTab("Tracking");
-            }, 300);
+            }, 100);
           }}
         >
           Tracking Details
@@ -46,7 +46,7 @@ const BottomContainer = ({ trackingStages, error }) => {
             setTimeout(() => {
               setActiveTab("Order Details");
       
-            }, 500);
+            }, 100);
           }}
         >
           Order Details
