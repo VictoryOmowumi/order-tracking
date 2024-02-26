@@ -2,6 +2,7 @@ import React, {useState, useEffect}from "react";
 import TopContainer from "./components/TopContainer";
 import BottomContainer from "./components/BottomContainer";
 import Loading from "./components/Loading";
+import Error from "./components/Error";
 // import { useParams } from "react-router-dom";
 const App = () => {
 
@@ -33,6 +34,8 @@ const App = () => {
 
   if (loading) {
     return <Loading />;
+  } else if (error) {
+    return <Error message={error.message} />;
   }
 
   return (
