@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect}from "react";
+import TopContainer from "./components/TopContainer";
+import BottomContainer from "./components/BottomContainer";
+import Loading from "./components/Loading";
+import { useParams } from "react-router-dom";
+const App = () => {
 
-function App() {
+  const [trackingStages, setTrackingStages] = useState([])
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  // const { orderId } = useParams();
+  const orderId = "ORD003148";
+  const url = `https://drs.sevenup.org/DigitalRetail/Orders/OrderTracking?orderId=${orderId}`;
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setTrackingStages(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  }
+  , [url]);
+
+
+  
+  function appendOrderId() {
+    window.location.href = `http://localhost:3000/tracking/${orderId}`
+  }
+
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="w-full min-h-screen flex  main-container flex-col justify-between text-white">
+      <section className="">
+        <TopContainer />
+      </section>
+      <section className="">
+        <BottomContainer 
+          trackingStages={trackingStages}
+          error={error}
+         />
+      </section>
+      <button onClick={appendOrderId}>Append Order ID</button>
+    </main>
   );
-}
+};
 
 export default App;

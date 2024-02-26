@@ -1,0 +1,116 @@
+<div className="flex gap-4 h-max my-2 mt-8">
+          <div className="flex-[1] flex flex-col gap-4 justify-between text-center items-center max-w-14 rounded-lg bg-white">
+            {Array.from({ length: totalLength }).map((_, index) => (
+              <React.Fragment key={index}>
+                <div
+                  className={`w-12 h-12 flex items-center justify-center ${
+                    index < trailLength
+                      ? "bg-yellow-500"
+                      : "bg-yellow-500 opacity-50"
+                  }`}
+                >
+                  {index + 1}
+                </div>
+                {index !== totalLength - 1 && (
+                  <div className="flex-1 w-1 bg-yellow-500"></div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+
+          <div className="flex-[2]  flex flex-col gap-5 ">
+            {trackingStage?.data?.trackTrail.map((stage, index) => (
+              <div key={index} className={`flex flex-col py-2 px-2 rounded-md bg-amber-400 border-b border-[#717171] border-opacity-50 relative`}>
+                <div
+                  className={`flex  justify-between items-center cursor-pointer ${
+                    index !== trackingStage?.data?.trackTrail.length - 1 &&
+                    "pb-4 "
+                  }`}
+                  onClick={() => toggleDetails(index)}
+                >
+                  <div className="flex flex-col">
+                    <span className="font-medium text-white text-base">
+                      {stage.stage}
+                    </span>
+                    <span className="text-primary-color opacity-75 text-sm">
+                      {moment(stage.date).format("Do MMMM") + " || "}
+                      {moment(stage.date).format("hh:mm A")}
+                    </span>
+                  </div>
+                  {visibleIndex === index ? (
+                    <FaChevronUp className="text-primary-color" />
+                  ) : (
+                    <FaChevronDown className="text-primary-color" />
+                  )}
+                </div>
+                {visibleIndex === index && (
+                  <div className="flex flex-col gap-3 ">
+                    <div className="flex w-full justify-between">
+                      <span className="font-medium text-white text-sm">
+                        {stage.location}
+                      </span>
+                      <span className="font-medium text-white text-sm">
+                        {moment(stage.date).format("DD/MM/YYYY")}
+                      </span>
+                    </div>
+                    {/*  if the stage is order placed, show the payment details */}
+                    {stage.stage === "Order Placed" && (
+                      <div className="flex flex-col gap-2">
+                        <span className="font-medium text-white text-sm">
+                          Payment Link:{" "}
+                          <a
+                            href={paymentDetails?.paymentLink}
+                            className="text-primary-color underline"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {paymentDetails?.paymentLink.substring(0, 20)}...
+                          </a>
+                        </span>
+                        <span className="font-medium text-white text-sm">
+                          Expiry Date:{" "}
+                          {moment(paymentDetails?.expiry).format("DD/MM/YYYY")}
+                        </span>
+                      </div>
+                    )}
+                    {/*  if the stage is shipped show the aramex link for live tracking */}
+                    {stage.stage === "Shipped" && (
+                      <div className="flex flex-col gap-2">
+                        <span className="font-medium text-white text-sm">
+                          Tracking Link:{" "}
+                          <a
+                            href={trackingDetail?.aramexLink}
+                            className="text-primary-color underline"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {trackingDetail?.aramexLink?.substring(0, 20) ||
+                              "Unavailable"}
+                            ...
+                          </a>
+                        </span>
+                      </div>
+                    )}
+
+                    {/* if the stage is payment confirmed i want to display the customer whatsapp link so that the customer can chat with the customer care if they have any issues */}
+                    {stage.stage === "Payment Confirmed" && (
+                      <div className="flex flex-col gap-2">
+                        <span className="font-medium text-white text-sm">
+                          Customer Care:{" "}
+                          <a
+                            href={customerService}
+                            className="text-primary-color underline"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Chat with us on WhatsApp for expired orders
+                          </a>
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>

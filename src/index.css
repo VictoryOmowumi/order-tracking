@@ -1,13 +1,176 @@
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.cdnfonts.com/css/satoshi");
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: "Satoshi", sans-serif;
+}
+
+.main-container {
+  background: radial-gradient(
+    circle,
+    rgba(0, 47, 44, 1) 19%,
+    rgba(1, 95, 89, 1) 100%
+  );
+  background: url("../src/assets/logistics.gif");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* for mobile screens can we fix the background video size  so it fits the screen */
+@media (max-width: 768px) {
+  .main-container {
+    background: url("../src/assets/logistics-mobile.gif");
+    background-size: cover;
+  }
+}
+
+@media (max-width: 425px) {
+  .main-container {
+    background: url("../src/assets/logistics-small.gif");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+.bottom-container {
+  border-radius: 60px 60px 0 0;
+  margin-top: 40px;
+}
+
+.line {
+  width: 100px;
+  height: 8px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.slide-in {
+  animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.fade-in {
+  animation: fade-in 1s ease-in-out;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.tracking-line {
+  position: relative;
+  padding-left: 35px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.tracking-line:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15px;
+  border-left: 3px dotted #ffffff;
+  height: 100%;
+  background-image: linear-gradient(to bottom, white 50%, transparent 50%);
+  background-size: 100% 20px;
+}
+
+.tracking-circle {
+  position: absolute;
+  left: 0;
+  top: -1%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: white;
+}
+
+.tracking-circle.completed {
+  background: rgb(0 146 137);
+}
+
+.tracking-circle.pending {
+  background: rgb(0 146 137 / 50%);
+}
+
+.expand {
+  transition: max-height 0.5s ease-in-out;
+}
+
+.collapsed {
+  transition: max-height 0.5s ease-in-out;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #2a9444;
+  color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.dropdown-content.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dotted {
+  border-top: 5px #faf2f2 dotted;
+}
+
+.left {
+  background-color: rgba(35, 197, 35, 0);
+}
+.left.dotted {
+  border-left: 1px #fdfdfd dotted;
+  border-top: none;
 }
