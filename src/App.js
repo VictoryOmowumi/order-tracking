@@ -29,9 +29,7 @@ const App = () => {
 
 
   
-  function appendOrderId() {
-    window.location.href = `http://localhost:3000/tracking/${orderId}`
-  }
+  
 
   if (loading) {
     return <Loading />;
@@ -48,7 +46,6 @@ const App = () => {
           error={error}
          />
       </section>
-      <button onClick={appendOrderId}>Append Order ID</button>
     </main>
   );
 };
