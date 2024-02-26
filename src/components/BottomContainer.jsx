@@ -4,7 +4,7 @@ import OrderDetails from "./OrderDetails";
 
 const BottomContainer = ({ trackingStages, error }) => {
   const [activeTab, setActiveTab] = useState("Tracking");
-  const [slideIn, setSlideIn] = useState(true);
+
   const [isExpanded, setIsExpanded] = useState(true);
 
   const handleExpand = () => {
@@ -29,10 +29,9 @@ const BottomContainer = ({ trackingStages, error }) => {
             activeTab === "Tracking" ? "active bg-primary-color" : ""
           } `}
           onClick={() => {
-            setSlideIn(false);
+          
             setTimeout(() => {
               setActiveTab("Tracking");
-              setSlideIn(true);
             }, 300);
           }}
         >
@@ -43,10 +42,10 @@ const BottomContainer = ({ trackingStages, error }) => {
             activeTab === "Order Details" ? "active bg-primary-color" : ""
           }`}
           onClick={() => {
-            setSlideIn(false);
+            
             setTimeout(() => {
               setActiveTab("Order Details");
-              setSlideIn(true);
+      
             }, 500);
           }}
         >

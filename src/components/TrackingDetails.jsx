@@ -6,11 +6,11 @@ import {
   FaLink,
   FaMapPin,
   FaClock,
-  FaCheckDouble,
-  FaShippingFast,
-  FaMoneyCheckAlt,
+  // FaCheckDouble,
+  // FaShippingFast,
+  // FaMoneyCheckAlt,
 } from "react-icons/fa";
-import { FaCheck, FaBoxOpen } from "react-icons/fa6";
+import { FaCheck, } from "react-icons/fa6";
 import { RiCustomerService2Line } from "react-icons/ri";
 
 const TrackingDetails = ({ trackingStage }) => {
@@ -26,12 +26,12 @@ const aramexLink = trackingStage?.data?.aramexLink
   };
  
 
-  const stageIcons = {
-    "Order Placed": <FaBoxOpen />,
-    Shipped: <FaShippingFast />,
-    "Payment Confirmed": <FaMoneyCheckAlt />,
-    // Add more stages and icons as needed
-  };
+  // const stageIcons = {
+  //   "Order Placed": <FaBoxOpen />,
+  //   Shipped: <FaShippingFast />,
+  //   "Payment Confirmed": <FaMoneyCheckAlt />,
+ 
+  // };
 
   return (
     <>

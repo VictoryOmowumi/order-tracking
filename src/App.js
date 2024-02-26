@@ -2,7 +2,7 @@ import React, {useState, useEffect}from "react";
 import TopContainer from "./components/TopContainer";
 import BottomContainer from "./components/BottomContainer";
 import Loading from "./components/Loading";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 const App = () => {
 
   const [trackingStages, setTrackingStages] = useState([])
