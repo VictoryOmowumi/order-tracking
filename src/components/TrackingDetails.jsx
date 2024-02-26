@@ -19,7 +19,7 @@ const TrackingDetails = ({ trackingStage }) => {
   const paymentDetails = trackingStage?.data?.paymentDetails;
   const customerService = trackingStage?.data?.customerService;
   const [visibleIndex, setVisibleIndex] = useState(null);
-  const trailLength = trackingStage?.data?.trackTrail.length;
+  const trailLength = trackingStage?.data?.trackTrail?.length;
 const aramexLink = trackingStage?.data?.aramexLink
   const toggleDetails = (index) => {
     setVisibleIndex(visibleIndex === index ? null : index);
