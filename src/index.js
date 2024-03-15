@@ -8,7 +8,7 @@ root.render(
   <React.StrictMode>
     <Router>
       <Routes>
-        <Route path="/tracking/:trackingId" element={<App />} />
+        <Route path="/tracking/:trackingId/*" element={<App />} />
       </Routes>
     </Router>
   </React.StrictMode>
