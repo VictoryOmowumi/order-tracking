@@ -49,7 +49,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Main trackingStages={trackingStages} error={error} />} />
+      <Route path="/tracking/:trackingId" element={<Main trackingStages={trackingStages} error={error} />} />
     </Routes>
   );
 };
