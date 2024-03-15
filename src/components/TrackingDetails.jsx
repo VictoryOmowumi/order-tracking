@@ -6,32 +6,20 @@ import {
   FaLink,
   FaMapPin,
   FaClock,
-  // FaCheckDouble,
-  // FaShippingFast,
-  // FaMoneyCheckAlt,
 } from "react-icons/fa";
-import { FaCheck, } from "react-icons/fa6";
-import { RiCustomerService2Line } from "react-icons/ri";
+import { FaCheck } from "react-icons/fa6";
 
 const TrackingDetails = ({ trackingStage }) => {
   const orderDetail = trackingStage?.data?.orderDetail;
   const trackingDetail = trackingStage?.data?.trackTrail;
   const paymentDetails = trackingStage?.data?.paymentDetails;
   const customerService = trackingStage?.data?.customerService;
-  const [visibleIndex, setVisibleIndex] = useState(null);
   const trailLength = trackingStage?.data?.trackTrail?.length;
-const aramexLink = trackingStage?.data?.aramexLink
+  const [visibleIndex, setVisibleIndex] = useState(0); // Changed here
+  const aramexLink = trackingStage?.data?.aramexLink;
   const toggleDetails = (index) => {
     setVisibleIndex(visibleIndex === index ? null : index);
   };
- 
-
-  // const stageIcons = {
-  //   "Order Placed": <FaBoxOpen />,
-  //   Shipped: <FaShippingFast />,
-  //   "Payment Confirmed": <FaMoneyCheckAlt />,
- 
-  // };
 
   return (
     <>
@@ -116,7 +104,7 @@ const aramexLink = trackingStage?.data?.aramexLink
                                   {moment(stage.date).format("hh:mm A")}
                                 </span>
                                 <span className="text-[#949494] font-medium  text-sm">
-                                    {moment(stage.date).format("MMM D, YYYY")}
+                                  {moment(stage.date).format("MMM D, YYYY")}
                                 </span>
                               </div>
                             )}
@@ -125,7 +113,6 @@ const aramexLink = trackingStage?.data?.aramexLink
                         {visibleIndex === index && (
                           <div className="flex flex-col mt-4 gap-4 transition-all ease-in-out duration-500 bg-slate-500 bg-opacity-50 px-2 py-3 rounded-md">
                             <div className="flex flex-col gap-4 w-full">
-                              
                               <span className="flex gap-2 items-center font-medium text-white text-sm">
                                 {stage.date ? (
                                   <FaClock className="text-amber-400 text-lg" />
@@ -156,57 +143,55 @@ const aramexLink = trackingStage?.data?.aramexLink
                                     target="_blank"
                                     rel="noreferrer"
                                   >
-                                    {paymentDetails?.paymentLink.substring(
+                                    {paymentDetails?.paymentLink?.substring(
                                       0,
-                                      20
+                                      30
                                     )}
                                     ...
                                   </a>
                                 </span>
                                 <span className="mt-2 font-medium text-white text-sm">
-                                  Expiry Date:{" "}
+                                  This order and payment link will expire on{" "}
+                                  <br />
                                   {moment(paymentDetails?.expiry).format(
-                                    "DD/MM/YYYY"
+                                    "MM/DD hh:mm A"
                                   )}
                                 </span>
                               </div>
                             )}
                             {/*  if the stage is shipped show the aramex link for live tracking */}
-                            {(stage.stage === "Shipped" || stage.stage === "In Transit") && (
-                              <div className="flex flex-col gap-2">
-                                <span className="font-medium text-white text-sm">
-                                  Aramex Tracking Link:{" "}
-                                  <a
-                                    href={trackingDetail?.aramexLink}
-                                    className="text-[#949494] underline"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  >
-                                    {aramexLink.substring(
-                                      0,
-                                      40
-                                    )}
-                                    ...
-                                  </a>
-                                </span>
-                              </div>
-                            )}
+                            {(stage.stage === "Shipped" ||
+                              stage.stage === "In Transit") &&
+                              aramexLink && (
+                                <div className="flex flex-col gap-2">
+                                  <span className="font-medium text-white text-sm">
+                                    Aramex Tracking Link:{" "}
+                                    <a
+                                      href={trackingDetail?.aramexLink}
+                                      className="text-[#949494] underline"
+                                      target="_blank"
+                                      rel="noreferrer"
+                                    >
+                                      {aramexLink?.substring(0, 30)}
+                                      ...
+                                    </a>
+                                  </span>
+                                </div>
+                              )}
 
                             {/* if the stage is payment confirmed i want to display the customer whatsapp link so that the customer can chat with the customer care if they have any issues */}
                             {stage.stage === "Payment Confirmed" && (
                               <div className="flex flex-col gap-2">
-                                <div className="flex flex-col gap-2 font-medium text-white text-sm">
-                                  <span className="flex gap-2 items-center">
-                                    <RiCustomerService2Line className="text-amber-400 text-lg" />
-                                    Customer Care{" "}
-                                  </span>
+                                <div className=" gap-2 font-medium text-white text-sm">
+                                  Your order has expired, if you've made
+                                  payment, please {""}
                                   <a
                                     href={customerService}
                                     className="text-slate-200 underline"
                                     target="_blank"
                                     rel="noreferrer"
                                   >
-                                    Chat with us on WhatsApp for expired orders
+                                    click here to chat with customer service
                                   </a>
                                 </div>
                               </div>

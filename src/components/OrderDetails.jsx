@@ -3,8 +3,7 @@ import React from 'react'
 const OrderDetails = ({ orderDetail }) => {
   const orderDetails = orderDetail?.data?.orderDetail;
   const orderList = orderDetails?.orderItems;  
-   const total = orderList.reduce((acc, item) => acc + item.price, 0);
- 
+   
   return (
     <div className="fade-in flex flex-col h-max">
       <div className="flex flex-col">
@@ -27,45 +26,35 @@ const OrderDetails = ({ orderDetail }) => {
 
       {/*  table with product details */}
       <div className="mt-8">
-        <table className="w-full  table-fixed border-collapse text-center">
+        <table className="w-full  table-fixed border-collapse ">
           <thead className="bg-white w-full  rounded-t-md ">
-            <tr className="">
-              <th className="text-primary-color text-sm font-medium py-4 px-2 rounded-tl-md ">
-                Product
+            <tr className="w-full">
+              {/* <th className="text-primary-color text-sm font-medium py-4 px-2  ">
+                SKU
+              </th> */}
+              <th className="text-primary-color text-sm font-medium py-4 px-2 w-[70%] rounded-tl-md">
+                Description
               </th>
-              <th className="text-primary-color text-sm font-medium py-4 px-2 ">
+              <th className="text-primary-color text-sm font-medium py-4 w-[30%] rounded-tr-md ">
                 Quantity
-              </th>
-              <th className="text-primary-color text-sm font-medium py-4 px-2 rounded-tr-md ">
-                Price
               </th>
             </tr>
           </thead>
           <tbody className="">
             {orderList?.map((item, index) => (
               <tr key={index}>
+                {/* <td className="text-white text-sm font-medium py-6 px-2">
+                  {item.sku}
+                </td> */}
                 <td className="text-white text-sm font-medium py-6 px-2">
                   {item.description}
                 </td>
-                <td className="text-white text-sm font-medium py-6 px-2">
+                <td className="text-white text-sm font-medium py-6 text-center">
                   {item.quantity}
-                </td>
-                <td className="text-white text-sm font-medium py-6 px-2">
-                  ₦{item.price.toLocaleString()}
                 </td>
               </tr>
             ))}
-            {/*  add a row for the total */}
-
-            <tr className="border-t">
-              <td className="text-white text-xl font-medium py-6 px-2">
-                Total
-              </td>
-              <td className="text-white text-sm font-medium py-6 px-2"></td>
-              <td className="text-white text-xl font-medium py-6 px-2">
-                ₦ {total.toLocaleString()}
-              </td>
-            </tr>
+           
           </tbody>
         </table>
       </div>

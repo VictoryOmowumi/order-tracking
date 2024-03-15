@@ -1,21 +1,30 @@
 import React, {useState, useEffect}from "react";
-import TopContainer from "./components/TopContainer";
-import BottomContainer from "./components/BottomContainer";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
-// import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
+import Main from "./pages/Main";
 const App = () => {
+ const navigate = useNavigate(); 
+ 
+ const [trackingStages, setTrackingStages] = useState([]);
+ const [error, setError] = useState(null);
+ const [loading, setLoading] = useState(false);
+ 
+ 
+ useEffect(() => {
+   const uid = "372F150A-346D-4587-B100-B35AD9A6C983";
+   navigate(`/tracking/${uid}`); 
+  }, [navigate]);
+  const { trackingId } = useParams();
+  
 
-  const [trackingStages, setTrackingStages] = useState([])
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  // const { orderId } = useParams();
-  const orderId = "ORD003207";
-  const url = `https://drs.sevenup.org/DigitalRetail/Orders/OrderTracking?orderId=${orderId}`;
+  const orderUrl = `https://drsdev.sevenup.org/DigitalRetail/Orders/OrderTracking?trackingId=${trackingId}`;
+
 
   useEffect(() => {
     setLoading(true);
-    fetch(url)
+    fetch(orderUrl)
       .then((response) => response.json())
       .then((data) => {
         setTrackingStages(data);
@@ -26,7 +35,7 @@ const App = () => {
         setLoading(false);
       });
   }
-  , [url]);
+  , [orderUrl, navigate]);
 
 
   
@@ -39,17 +48,9 @@ const App = () => {
   }
 
   return (
-    <main className="w-full min-h-screen flex  main-container flex-col justify-between text-white">
-      <section className="">
-        <TopContainer />
-      </section>
-      <section className="">
-        <BottomContainer 
-          trackingStages={trackingStages}
-          error={error}
-         />
-      </section>
-    </main>
+    <Routes>
+      <Route path="/" element={<Main trackingStages={trackingStages} error={error} />} />
+    </Routes>
   );
 };
 
