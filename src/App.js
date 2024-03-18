@@ -17,7 +17,7 @@ const App = () => {
   //   navigate(`/tracking/${uid}`);
   // }, [navigate]);
   const { trackingId } = useParams();
-
+console.log(trackingId)
   const orderUrl = `${baseUrl}${trackingId}`;
 
   useEffect(() => {
