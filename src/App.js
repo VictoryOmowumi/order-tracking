@@ -1,26 +1,24 @@
-import React, {useState, useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import Loading from "./components/Loading";
 import Error from "./components/Error";
 import { useParams, useNavigate } from "react-router-dom";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "./pages/Main";
+import { baseUrl } from "./baseUrl";
 const App = () => {
- const navigate = useNavigate(); 
- 
- const [trackingStages, setTrackingStages] = useState([]);
- const [error, setError] = useState(null);
- const [loading, setLoading] = useState(false);
- 
- 
- useEffect(() => {
-   const uid = "372F150A-346D-4587-B100-B35AD9A6C983";
-   navigate(`/tracking/${uid}`); 
-  }, [navigate]);
+  const navigate = useNavigate();
+
+  const [trackingStages, setTrackingStages] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   const uid = "372F150A-346D-4587-B100-B35AD9A6C983";
+  //   navigate(`/tracking/${uid}`);
+  // }, [navigate]);
   const { trackingId } = useParams();
-  
 
-  const orderUrl = `https://drsdev.sevenup.org/DigitalRetail/Orders/OrderTracking?trackingId=${trackingId}`;
-
+  const orderUrl = `${baseUrl}${trackingId}`;
 
   useEffect(() => {
     setLoading(true);
@@ -34,12 +32,7 @@ const App = () => {
         setError(error);
         setLoading(false);
       });
-  }
-  , [orderUrl, navigate]);
-
-
-  
-  
+  }, [orderUrl, navigate]);
 
   if (loading) {
     return <Loading />;
@@ -49,7 +42,10 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Main trackingStages={trackingStages} error={error} />} />
+      <Route
+        path="/"
+        element={<Main trackingStages={trackingStages} error={error} />}
+      />
     </Routes>
   );
 };

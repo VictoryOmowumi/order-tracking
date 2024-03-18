@@ -1,0 +1,1 @@
+export const baseUrl = "https://drsdev.sevenup.org/DigitalRetail/Orders/OrderTracking?trackingId=";
